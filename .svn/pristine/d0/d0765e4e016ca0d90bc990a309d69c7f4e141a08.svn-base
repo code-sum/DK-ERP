@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.happyjob.study.accAcm.dao.accAcmDao">
+	<select id="accAcmSearchList" resultType="kr.happyjob.study.accAcm.model.accAcmModel">
+		select ab.acnt_sbject_cd, ab.acnt_sbject_name, ads.acnt_dt_sbject_cd, ads.acnt_dt_sbjct_inout, ads.acnt_dt_sbjct_name
+  		  from tb_acnt_sbject ab
+       		   inner join tb_dt_sbject ads on ab.acnt_sbject_cd = ads.acnt_sbject_cd
+	</select>
+	
+	<select id="countactlist" resultType="int">
+		select count(*)
+  		  from tb_acnt_sbject ab
+       		   inner join tb_dt_sbject ads on ab.acnt_sbject_cd = ads.acnt_sbject_cd
+	
+	</select>
+	
+	
+	
+	
+</mapper>

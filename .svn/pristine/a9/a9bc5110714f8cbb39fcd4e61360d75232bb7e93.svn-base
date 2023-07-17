@@ -1,0 +1,110 @@
+package kr.happyjob.study.emp.service;
+
+import kr.happyjob.study.emp.dao.EmpDao;
+import kr.happyjob.study.emp.model.EmpModel;
+import kr.happyjob.study.mngNot.model.NoticeModel;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+@Service
+
+public class EmpServiceImpl implements EmpService{
+
+    @Autowired
+    EmpDao empDao;
+
+
+    @Value("${sal_kuk_rate}")
+    private String sal_kuk_rate;
+    @Value("${sal_kun_rate}")
+    private String sal_kun_rate;
+    @Value("${sal_ko_rate}")
+    private String sal_ko_rate;
+    @Value("${sal_san_rate}")
+    private String sal_san_rate;
+
+    @Override
+    public String maxMethod3(Map<String, Object> paramMap) {
+        return empDao.maxMethod3(paramMap);
+    }
+
+
+
+    @Override
+    public List<EmpModel> empList(Map<String, Object> paramMap) throws Exception {
+        return empDao.empList(paramMap);
+    }
+
+    @Override
+    public int countempList(Map<String, Object> paramMap) throws Exception {
+        return empDao.countempList(paramMap);
+    }
+
+    @Override
+    public EmpModel empSelectOne(Map<String, Object> paramMap) throws Exception {
+        return empDao.empSelectOne(paramMap);
+    }
+
+ @Override
+    public int empInsert(Map<String, Object> paramMap) throws Exception {
+        double emp_yr_sal = Integer.parseInt((String)paramMap.get("emp_yr_sal")) ;
+        double sal_pre =emp_yr_sal/12;
+
+        double sal_kuk = sal_pre * Double.valueOf(sal_kuk_rate);
+        double sal_kun = sal_pre * Double.valueOf(sal_kun_rate);
+        double sal_ko = sal_pre * Double.valueOf(sal_ko_rate);
+        double sal_san = sal_pre * Double.valueOf(sal_san_rate);
+        double sal_after = sal_pre - sal_kuk - sal_kun - sal_ko - sal_san;
+
+        paramMap.put("sal_pre", sal_pre);
+        paramMap.put("sal_kuk", sal_kuk);
+        paramMap.put("sal_kun", sal_kun);
+        paramMap.put("sal_ko", sal_ko);
+        paramMap.put("sal_san", sal_san);
+        paramMap.put("sal_after", sal_after);
+
+
+        return empDao.empInsert(paramMap);
+    }
+
+    @Override
+    public int empUpdate(Map<String, Object> paramMap) throws Exception {
+        return empDao.empUpdate(paramMap);
+    }
+
+    @Override
+    public int empDelete(Map<String, Object> paramMap) throws Exception {
+        return empDao.empDelete(paramMap);
+    }
+
+    @Override
+    public int vaceInsert(Map<String, Object> paramMap) throws Exception {
+        int dt_va_tot=0;
+        int dt_vaca_rest = 0;
+
+
+
+
+
+        String levelCd = (String) paramMap.get("level_cd");
+        String[] level_cdArray= {"10","20","30"};
+        int[] dt_va_totArray  = {12,13,14};
+        for (int i=0; i<level_cdArray.length; i++) {
+            if(level_cdArray[i].equals(levelCd)) {
+                dt_va_tot = dt_va_totArray[i];
+                break;
+            }
+        }
+        dt_vaca_rest = dt_va_tot;
+        paramMap.put("dt_va_tot", dt_va_tot);
+        paramMap.put("dt_vaca_rest", dt_vaca_rest);
+        return empDao.vaceInsert(paramMap);
+    }
+
+
+
+}

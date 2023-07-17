@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.happyjob.study.calDay.dao.CalDayDao">
+	<select id="dateCheckList" resultType="kr.happyjob.study.calDay.model.CalDayModel">
+		<!-- 휴가신청일, 승인여부, 승인여부갯수 신청일 승인여부 순서로 -->
+	
+		SELECT ll.vaca_req_date
+			  ,ll.appro_yn
+		    ,COUNT(*) AS vaca_yn_cnt
+		FROM (
+		    SELECT vr.appro_yn
+		    	,DATE_FORMAT(vr.vaca_req_date, '%Y-%m-%d') AS vaca_req_date
+		    	, ui.name
+		    	, ui.dept_cd
+		    	, ui.level_cd
+		    FROM tb_vaca_req vr
+		    	LEFT JOIN tb_userinfo ui ON ui.loginID = vr.loginID
+			WHERE vr.vaca_req_date BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d')  AND DATE_ADD(STR_TO_DATE(#{endDate}, '%Y-%m-%d'), INTERVAL 1 DAY) 
+				) AS ll
+		GROUP BY ll.vaca_req_date
+		    ,ll.appro_yn;
+
+	</select>
+
+<!-- 부서명 신청일 직원명 승인여부 -->
+	<select id="dateCheckDList" resultType="kr.happyjob.study.calDay.model.CalDayModel">
+		SELECT dc.detail_name AS dept_name
+			, ui.name AS name
+			,vr.appro_yn
+		FROM tb_vaca_req vr
+		        LEFT JOIN tb_userinfo ui ON ui.loginID = vr.loginID
+		        LEFT JOIN tb_detail_code dc ON dc.detail_code = ui.dept_cd
+		WHERE vr.vaca_req_date = STR_TO_DATE(#{vacaDate}, '%Y-%m-%d')
+		<!-- AND vr.appro_yn = #{appro_yn} -->
+		ORDER BY vr.appro_yn DESC
+	</select>
+</mapper>

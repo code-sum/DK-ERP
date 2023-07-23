@@ -10,8 +10,8 @@
   - 파일경로 `/src/main/java/kr/happyjob/study/busSas`
   - [소스코드](../src/main/java/kr/happyjob/study/busSas)
 - SQL
-  - 파일경로 `/src/main/resources/sql/BusSas`
-  - [소스코드](../src/main/resources/sql/BusSas)
+  - 파일경로 `/src/main/resources/sql/busSas`
+  - [소스코드](../src/main/resources/sql/busSas)
 - JSP
   - 파일경로 `/src/main/webapp/WEB-INF/view/busSas`
   - [소스코드](../src/main/webapp/WEB-INF/view/busSas)

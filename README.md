@@ -84,11 +84,11 @@
 
 #### 1. 담당 역할 (이수경 개발자)
 
-- [영업계획](notes/busSap)
-- [영업실적조회](notes/busSas)
-- [고객기업관리](notes/busClm)
-- [납품기업관리](notes/busSpm)
-- [주문관리](notes/busOdm)
+- [영업계획](/notes/busSap.md)
+- [영업실적조회](/notes/busSas.md)
+- [고객기업관리](/notes/busClm.md)
+- [납품기업관리](/notes/busSpm.md)
+- [주문관리](/notes/busOdm.md)
 
 
 

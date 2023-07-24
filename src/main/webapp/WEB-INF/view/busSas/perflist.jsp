@@ -23,19 +23,17 @@
                               
 <script type="text/javascript">
 
-	// 페이징 설정
+	/** 페이징 설정 **/
 	var pageSize = 5;     
 	var pageBlockSize = 5;    
 	
 	
-	/** OnLoad event */ 
+	/** OnLoad event **/ 
 	$(function() {
-		// 버튼 이벤트 등록
-		fRegisterButtonClickEvent();
+		fRegisterButtonClickEvent();  // 버튼 이벤트
+		fn_perflist();  // 영업실적 목록
 		
-		fn_perflist();
-		
-		/* 검색창 콤보 박스  모음  */
+		/* 검색창 콤보박스 모음 */
 		// 고객기업명 (조회 대상 테이블  tb_clnt)
 		selectComCombo("cli","searchclicombo","all","","");  // combo type(combo box 종류),  combo_name, type(기본값  all : 전체   sel : 선택) , "", "" 
 		// 제품분류
@@ -48,39 +46,39 @@
 		// 제품명
 		$('#searchmtypecombo').change(function() {   
 			productCombo("p","searchptypecombo","all",$("#searchltypecombo").val(),$("#searchmtypecombo").val(),"");   // combo type(combo box 종류),  combo_name, type(기본값  all : 전체   sel : 선택) , 선택된 상위 계정코드, "" 
-		});
-				
+		});		
 	});
 	
 	
-	/** 버튼 이벤트 등록 */
+	/** 버튼 이벤트 등록 **/
 	function fRegisterButtonClickEvent() {
-    $('a[name=btn]').click(function(e) {
-        e.preventDefault();
+                 $('a[name=btn]').click(function(e) {
+                         e.preventDefault();
 
-        var btnId = $(this).attr('id');
+                         var btnId = $(this).attr('id');
 
-        switch (btnId) {
-	        case 'btnSearch' :
-	            fn_perflist();
-	            break;
-	        }
-	    });
+		         switch (btnId) {
+			         case 'btnSearch' :
+			             fn_perflist();
+			             break;
+			 }
+		 });
 	}
 	
-	
+
+	/** 영업실적 목록 **/
 	function fn_perflist(pagenum) {
 		
 		pagenum = pagenum || 1;
 		
 		var param = {
-			searchid : $("#searchid").val()
-		  , searchclicombo : $("#searchclicombo").val()
-		  , searchdate : $("#searchdate").val()
-		  , searchptypecombo : $("#searchptypecombo").val()
-		  , pageSize : pageSize
-		  , pageBlockSize : pageBlockSize
-		  , pagenum : pagenum
+			      searchid : $("#searchid").val()
+			    , searchclicombo : $("#searchclicombo").val()
+			    , searchdate : $("#searchdate").val()
+			    , searchptypecombo : $("#searchptypecombo").val()
+			    , pageSize : pageSize
+			    , pageBlockSize : pageBlockSize
+			    , pagenum : pagenum
 		}
 		
 		var listcallback = function(returnvalue) {
@@ -89,24 +87,18 @@
 			$("#listperf").empty().append(returnvalue);
 			
 			var  totalcnt = $("#totalcnt").val();
-			
 			console.log("totalcnt : " + totalcnt);
 			
 			var paginationHtml = getPaginationHtml(pagenum, totalcnt, pageSize, pageBlockSize, 'fn_perflist');
 			console.log("paginationHtml : " + paginationHtml);
 			 
-			$("#perfPagination").empty().append( paginationHtml );
-			
+			$("#perfPagination").empty().append(paginationHtml);
 			$("#pageno").val(pagenum);
-			
 		}
-		
-		callAjax("/busSas/perflist.do", "post", "text", false, param, listcallback) ;
-			
+		callAjax("/busSas/perflist.do", "post", "text", false, param, listcallback);
 	}
 
 	
-
 </script>
 
 </head>

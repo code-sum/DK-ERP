@@ -15,19 +15,17 @@
                               
 <script type="text/javascript">
 
-	// 페이징 설정
+	/** 페이징 설정 **/
 	var pageSize = 5;     
 	var pageBlockSize = 5;    
 	
 	
-	/** OnLoad event */ 
+	/** OnLoad event **/ 
 	$(function() {
-		// 버튼 이벤트 등록
-		fRegisterButtonClickEvent();
+		fRegisterButtonClickEvent();  // 버튼 이벤트
+		fn_planlist();  // 영업계획 목록
 		
-		fn_planlist();
-		
-		/* 검색창 콤보 박스  모음  */
+		/* 검색창 콤보박스 모음 */
 		// 고객기업명 (조회 대상 테이블  tb_clnt)
 		selectComCombo("cli","searchclicombo","all","","");  // combo type(combo box 종류),  combo_name, type(기본값  all : 전체   sel : 선택) , "", "" 
 		// 제품분류
@@ -42,7 +40,7 @@
 			productCombo("p","searchptypecombo","all",$("#searchltypecombo").val(),$("#searchmtypecombo").val(),"");   // combo type(combo box 종류),  combo_name, type(기본값  all : 전체   sel : 선택) , 선택된 상위 계정코드, "" 
 		});
 		
-		/* 모달 내부 콤보박스 모음   */
+		/* 모달 내부 콤보박스 모음 */
 		// 고객기업명
 		selectComCombo("cli","clicombo","all","","");  // combo type(combo box 종류),  combo_name, type(기본값  all : 전체   sel : 선택) , "", "" 
 		// 제품분류
@@ -56,49 +54,48 @@
 		$('#mtypecombo').change(function() {   
 			productCombo("p","ptypecombo","all",$("#ltypecombo").val(),$("#mtypecombo").val(),"");   // combo type(combo box 종류),  combo_name, type(기본값  all : 전체   sel : 선택) , 선택된 상위 계정코드, "" 
 		});
-				
 	});
 	
 	
-	/** 버튼 이벤트 등록 */
-	
+	/** 버튼 이벤트 등록 **/
 	function fRegisterButtonClickEvent() {
-    $('a[name=btn]').click(function(e) {
-        e.preventDefault();
+                 $('a[name=btn]').click(function(e) {
+                         e.preventDefault();
 
-        var btnId = $(this).attr('id');
+                         var btnId = $(this).attr('id');
 
-        switch (btnId) {
-	        case 'btnSearch' :
-	            fn_planlist();
-	            break;
-	        case 'btnSave' :
-	            fn_save();
-	            break;
-	        case 'btnDelete' :
-	            $("#action").val("D");	
-	            fn_save();
-	            break;
-	        case 'btnClose' :
-	            gfCloseModal();
-	            break;
-	        }
-	    });
+		        switch (btnId) {
+			        case 'btnSearch' :
+			            fn_planlist();
+			            break;
+			        case 'btnSave' :
+			            fn_save();
+			            break;
+			        case 'btnDelete' :
+			            $("#action").val("D");	
+			            fn_save();
+			            break;
+			        case 'btnClose' :
+			            gfCloseModal();
+			            break;
+			        }
+	            });
 	}
 	
-	
+
+        /** 영업계획 목록 **/
 	function fn_planlist(pagenum) {
 		
 		pagenum = pagenum || 1;
 		
 		var param = {
-			start : $("#searchstart").val()
-		  , end : $("#searchend").val()
-		  , searchclicombo : $("#searchclicombo").val()
-		  , searchptypecombo : $("#searchptypecombo").val()
-		  , pageSize : pageSize
-		  , pageBlockSize : pageBlockSize
-		  , pagenum : pagenum
+			      start : $("#searchstart").val()
+		            , end : $("#searchend").val()
+		            , searchclicombo : $("#searchclicombo").val()
+		            , searchptypecombo : $("#searchptypecombo").val()
+		            , pageSize : pageSize
+		            , pageBlockSize : pageBlockSize
+		            , pagenum : pagenum
 		}
 		
 		var listcallback = function(returnvalue) {
@@ -106,76 +103,75 @@
 			
 			$("#listplan").empty().append(returnvalue);
 			
-			var  totalcnt = $("#totalcnt").val();
-			
+			var totalcnt = $("#totalcnt").val();
 			console.log("totalcnt : " + totalcnt);
 			
 			var paginationHtml = getPaginationHtml(pagenum, totalcnt, pageSize, pageBlockSize, 'fn_planlist');
 			console.log("paginationHtml : " + paginationHtml);
 			 
-			$("#planPagination").empty().append( paginationHtml );
+			$("#planPagination").empty().append(paginationHtml);
 			
 			$("#pageno").val(pagenum);
 		}
-		
-		callAjax("/busSap/planlist.do", "post", "text", false, param, listcallback) ;
-			
+		callAjax("/busSap/planlist.do", "post", "text", false, param, listcallback);
 	}
 	
-	
+
+        /** 모달 **/
 	function fn_openpopup() {
 		
 		popupinit();
 		
 		// 모달 팝업
 		gfModalPop("#layer1");
-					
 	}
 	
-	
+
+        /** 모달 내 데이터 초기화/불러오기 **/
 	function popupinit(object) {
 		
-	    if(object == "" || object == null || object == undefined) {
-	    	$("#pln_no").val("");
-	        $("#clicombo").val("");
-	        $("#ltypecombo").val("");
-	        $("#mtypecombo").val("");
-	        $("#ptypecombo").val("");
-	        $("#pln_amt").val("");
-	        $("#per_amt").val("");
-	        $("#pln_memo").val("");
+	        if(object == "" || object == null || object == undefined) {
+		      $("#pln_no").val("");
+		      $("#clicombo").val("");
+		      $("#ltypecombo").val("");
+		      $("#mtypecombo").val("");
+		      $("#ptypecombo").val("");
+		      $("#pln_amt").val("");
+		      $("#per_amt").val("");
+		      $("#pln_memo").val("");
 
-	        $("#btnDelete").hide();
-	        $("#action").val("I");	
-	        
-	    } else {
-	    	$("#pln_no").val(object.pln_no);
-	        $("#clicombo").val(object.clnt_no);
-	        
-	   		// 제품분류~제조사~제품명  콤보박스 데이터들 불러오기
-	        $("#ltypecombo").val(object.pro_cd);	  
-			productCombo("m","mtypecombo","all",$("#ltypecombo").val(),"",object.splr_no);  
-			productCombo("p","ptypecombo","all",$("#ltypecombo").val(),$("#mtypecombo").val(),object.product_no); 
+		      $("#btnDelete").hide();
+		      $("#action").val("I");	
+		
+	        } else {
+	    	      $("#pln_no").val(object.pln_no);
+		      $("#clicombo").val(object.clnt_no);
+		
+		      // 제품분류-제조사-제품명 콤보박스 데이터 불러오기
+		      $("#ltypecombo").val(object.pro_cd);	  
+		      productCombo("m","mtypecombo","all",$("#ltypecombo").val(),"",object.splr_no);  
+		      productCombo("p","ptypecombo","all",$("#ltypecombo").val(),$("#mtypecombo").val(),object.product_no); 
 			
-	        $("#pln_amt").val(object.pln_amt);
-	        $("#per_amt").val(object.per_amt);
-	        $("#pln_memo").val(object.pln_memo);
+		      $("#pln_amt").val(object.pln_amt);
+		      $("#per_amt").val(object.per_amt);
+		      $("#pln_memo").val(object.pln_memo);
 
-	        $("#btnDelete").show();
-	        $("#action").val("U");	
-	    }
+		      $("#btnDelete").show();
+		      $("#action").val("U");	
+	        }
 	}
 	
-	
+
+        /** 영업계획 한건 조회 **/
 	function fn_selectone(no) {
 		
-	    var param = {
-	        pln_no : no
-	    }
+	        var param = {
+	            pln_no : no
+	        }
 
-	    var selectoncallback = function(returndata) {			
-	        console.log( JSON.stringify(returndata) );
-	        popupinit(returndata.plansearch);
+	        var selectoncallback = function(returndata) {			
+	            console.log( JSON.stringify(returndata) );
+	            popupinit(returndata.plansearch);
 
 	        // 모달 팝업
 	        gfModalPop("#layer1");
@@ -183,38 +179,38 @@
 	    callAjax("/busSap/planselectone.do", "post", "json", false, param, selectoncallback) ;
 	}
 	
-	
+
+        /** 영업계획 저장 **/
 	function fn_save() {
 		
-		// 비어있는 값으로 저장되지 않도록 유효성 검사
-	    if ( ! fn_Validate() ) {
-	        return;
-	    }
-		
-	 	// serialize() 사용으로, var param 선언X
-
-	    var savecallback = function(reval) {
-	        console.log( JSON.stringify(reval) );
-
-	        if(reval.returncval > 0) {
-	            alert("반영 되었습니다.");
-	            gfCloseModal();
-
-	            if($("#action").val() == "U") {
-	                fn_planlist($("#pageno").val());
-	            } else {
-	                fn_planlist();
-	            }
-	        }  else {
-	            alert("오류가 발생 되었습니다.");				
+	        // 비어있는 값으로 저장되지 않도록 유효성 검사
+	        if ( ! fn_Validate() ) {
+	            return;
 	        }
-	    }
+		
+	         // serialize() 활용하므로, var param 작성 X
 
-	    callAjax("/busSap/plansave.do", "post", "json", false, $("#myForm2").serialize(), savecallback);
+	        var savecallback = function(reval) {
+	            console.log(JSON.stringify(reval));
 
+	            if(reval.returncval > 0) {
+	                alert("반영 되었습니다.");
+	                gfCloseModal();
+
+	                if($("#action").val() == "U") {
+	                    fn_planlist($("#pageno").val());
+	                } else {
+	                    fn_planlist();
+	                }
+	            } else {
+	              alert("오류가 발생 되었습니다.");				
+	            }
+                }
+	        callAjax("/busSap/plansave.do", "post", "json", false, $("#myForm2").serialize(), savecallback);
 	}
 	
-	
+
+        /** 입력값 유효성 검사 **/
 	function fn_Validate() {
 		var chk = checkNotEmpty(
 				[

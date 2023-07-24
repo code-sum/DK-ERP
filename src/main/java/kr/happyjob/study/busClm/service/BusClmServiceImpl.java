@@ -26,19 +26,16 @@ public class BusClmServiceImpl implements BusClmService {
 	
 	/** 고객기업 목록 조회 */
 	public List<ClntModel> clntlist(Map<String, Object> paramMap) throws Exception {
-		
 		return busClmDao.clntlist(paramMap);
 	}
 	
 	/** 고객기업 목록 카운트 조회 */
 	public int countclntlist(Map<String, Object> paramMap) throws Exception {
-				
 		return busClmDao.countclntlist(paramMap);
 	}
 	
 	/** 고객기업 한건 조회 */
 	public ClntModel clntselectone(Map<String, Object> paramMap) throws Exception {
-		
 		return busClmDao.clntselectone(paramMap);
 	}
 	

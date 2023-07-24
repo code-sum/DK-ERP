@@ -14,9 +14,9 @@ public interface BusSpmService {
 	public int countsplrlist(Map<String, Object> paramMap) throws Exception;
 	
 	/** 납품기업 한건 조회 */
-    public SplrModel splrselectone(Map<String, Object> paramMap) throws Exception;
+        public SplrModel splrselectone(Map<String, Object> paramMap) throws Exception;
     
-    /** 납품기업 등록 */
+        /** 납품기업 등록 */
 	public int splrinsert(Map<String, Object> paramMap) throws Exception;
 	
 	/** 납품기업 수정 */

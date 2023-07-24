@@ -14,9 +14,9 @@ public interface BusClmService {
 	public int countclntlist(Map<String, Object> paramMap) throws Exception;
 	
 	/** 고객기업 한건 조회 */
-    public ClntModel clntselectone(Map<String, Object> paramMap) throws Exception;
+        public ClntModel clntselectone(Map<String, Object> paramMap) throws Exception;
     
-    /** 고객기업 등록 */
+        /** 고객기업 등록 */
 	public int clntinsert(Map<String, Object> paramMap) throws Exception;
 	
 	/** 고객기업 수정 */

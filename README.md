@@ -61,7 +61,7 @@
 
 #### 2-2. 개발 환경
 
-<img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=ffffff"/> <img src="https://img.shields.io/badge/Tomcat-F8DC75?style=flat-square&logo=ApacheTomcat&logoColor=000000"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=000000"/> <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat-square&logo=jQuery&logoColor=FFFFFF"/> <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=ffffff"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=ffffff"/> <img src="https://img.shields.io/badge/JSON-000000?style=flat-square&logo=JSON&logoColor=ffffff"/> <img src="https://img.shields.io/badge/Eclipse-2C2255?style=flat-square&logo=Eclipse&logoColor=ffffff"/>
+<img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=ffffff"/> <img src="https://img.shields.io/badge/Tomcat-F8DC75?style=flat-square&logo=ApacheTomcat&logoColor=000000"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=000000"/> <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat-square&logo=jQuery&logoColor=FFFFFF"/> <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=ffffff"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=ffffff"/> <img src="https://img.shields.io/badge/JSON-000000?style=flat-square&logo=JSON&logoColor=ffffff"/> <img src="https://img.shields.io/badge/Eclipse-2C2255?style=flat-square&logo=Eclipse&logoColor=ffffff"/> <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=ffffff"/>
 
 - Programming Language : Java 8, XML
 - Script Language (Server) : JSP (2.3)
@@ -73,7 +73,7 @@
 - Server : Apache Tomcat (8.0)
 - IDE : Eclipse (eGovFrameDev - 3.6.0)
 - DB : MySQL (5.1.3), Toad (8.0), eXERD
-- Tools : Ajax, JSON
+- Tools : Ajax, JSON, Figma
 
 
 
@@ -108,7 +108,7 @@
 #### 4-2. 문제 해결 (이수경 개발자)
 
 - Kakao Map API 활용 시 유의사항
-- JQuery serialize() 활용 시 유의사항
+- jQuery serialize() 활용 시 유의사항
 - Java 데이터타입 유의사항 (int vs. long)
 
 - MySQL 데이터타입 유의사항 (INT vs. BIGINT)
@@ -128,12 +128,9 @@
 
 #### 5-2. 향후 개선사항
 
-- **연별 매출 현황**
-  - 전년 대비 성장률, 총 지출 항목을 조회하는 탭과 그래프를 추가한다.
-- **급여 관리**
-  - 효과적인 인센티브 관리를 위해, 특정 성과 지표에 따른 인센티브 설정 및 실제 지급이 가능한 기능을 추가한다.
-- **SCM 연동**
-  - 공급망 관리(Supply Chain Management) 시스템과의 연동으로 제품 재고를 체계적으로 관리한다.
+- **연별 매출 현황** : 전년 대비 성장률, 총 지출 항목을 조회하는 탭과 그래프를 추가한다.
+- **급여 관리** : 효과적인 인센티브 관리를 위해, 특정 성과 지표에 따른 인센티브 설정 및 실제 지급이 가능한 기능을 추가한다.
+- **SCM 연동** : 공급망 관리(Supply Chain Management) 시스템과의 연동으로 제품 재고를 체계적으로 관리한다.
 
 
 

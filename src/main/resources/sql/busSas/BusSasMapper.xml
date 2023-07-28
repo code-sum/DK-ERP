@@ -31,10 +31,10 @@
 		            , sp.splr_no
 		            , sp.splr_name
 		        FROM tb_product pd
-		          INNER JOIN tb_pro pr ON pd.pro_cd = pr.pro_cd
-		          INNER JOIN tb_splr sp ON pd.splr_no = sp.splr_no
+		             INNER JOIN tb_pro pr ON pd.pro_cd = pr.pro_cd
+		             INNER JOIN tb_splr sp ON pd.splr_no = sp.splr_no
 		        ) ll
-		    INNER JOIN tb_planning pl ON pl.product_no = ll.product_no
+		          INNER JOIN tb_planning pl ON pl.product_no = ll.product_no
 		  <where>
 		       <if test="currentuserType == 'D'.toString()">
 		            and pl.loginID = #{currentLoginID}
@@ -69,10 +69,10 @@
 		            , sp.splr_no
 		            , sp.splr_name
 		        FROM tb_product pd
-		          INNER JOIN tb_pro pr ON pd.pro_cd = pr.pro_cd
-		          INNER JOIN tb_splr sp ON pd.splr_no = sp.splr_no
+		             INNER JOIN tb_pro pr ON pd.pro_cd = pr.pro_cd
+		             INNER JOIN tb_splr sp ON pd.splr_no = sp.splr_no
 		        ) ll
-		   INNER JOIN tb_planning pl ON pl.product_no = ll.product_no
+		          INNER JOIN tb_planning pl ON pl.product_no = ll.product_no
 		 <where>
 		      <if test="currentuserType == 'D'.toString()">
 		          and pl.loginID = #{currentLoginID}

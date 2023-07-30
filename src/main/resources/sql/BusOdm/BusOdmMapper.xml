@@ -18,8 +18,8 @@
 		      ,od.order_tot_price
 		      ,od.order_req
 		   FROM tb_order od
-		      INNER JOIN tb_clnt cl ON od.clnt_no = cl.clnt_no
-		      INNER JOIN tb_userinfo ui ON od.loginID = ui.loginID
+		        INNER JOIN tb_clnt cl ON od.clnt_no = cl.clnt_no
+		        INNER JOIN tb_userinfo ui ON od.loginID = ui.loginID
 		   <where>
 		   		<if test="(start != null) and (!start.equals(''))  ">
 				    and od.order_date <![CDATA[>=]]>  STR_TO_DATE(#{start}, '%Y-%m-%d')  
@@ -71,8 +71,8 @@
 		      ,od.order_tot_price
 		      ,od.order_req
 		   FROM tb_order od
-		      INNER JOIN tb_clnt cl ON od.clnt_no = cl.clnt_no
-		      INNER JOIN tb_userinfo ui ON od.loginID = ui.loginID
+		        INNER JOIN tb_clnt cl ON od.clnt_no = cl.clnt_no
+		        INNER JOIN tb_userinfo ui ON od.loginID = ui.loginID
 		    WHERE od.order_no = #{order_no};
   	</select>
   	
@@ -86,8 +86,8 @@
 		      ,ot.order_dt_amt
 		      ,ot.order_dt_price
 		   FROM tb_order_dt ot
-		      INNER JOIN tb_clnt cl ON ot.clnt_no = cl.clnt_no
-		      INNER JOIN tb_product pd ON ot.product_no = pd.product_no
+		        INNER JOIN tb_clnt cl ON ot.clnt_no = cl.clnt_no
+		        INNER JOIN tb_product pd ON ot.product_no = pd.product_no
 		  WHERE ot.order_no = #{order_no};
   	</select>
   	
@@ -95,8 +95,8 @@
 	<select id="countdetaillist" resultType="int">
     	SELECT COUNT(*)
 		   FROM tb_order_dt ot
-		      INNER JOIN tb_clnt cl ON ot.clnt_no = cl.clnt_no
-		      INNER JOIN tb_product pd ON ot.product_no = pd.product_no
+		        INNER JOIN tb_clnt cl ON ot.clnt_no = cl.clnt_no
+		        INNER JOIN tb_product pd ON ot.product_no = pd.product_no
 		  WHERE ot.order_no = #{order_no};
   	</select>
   	

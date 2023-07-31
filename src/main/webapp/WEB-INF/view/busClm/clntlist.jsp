@@ -10,7 +10,6 @@
 <title>고객기업 관리</title>
 <jsp:include page="/WEB-INF/view/common/common_include.jsp"></jsp:include>
 
-
 <!-- 대광유통 Favicon -->
 <link rel="icon" type="image/png" sizes="16x16" href="${CTX_PATH}/images/admin/comm/favicon-16x16.png">
 
@@ -22,64 +21,62 @@
 	
 <!-- 카카오맵 API key -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cddfe15bacfcebf2e218ddc6e15fd2eb&libraries=services"></script>
-           
-                             
+                                        
 <script type="text/javascript">
 
-	// 페이징 설정
+	/** 페이징 설정 **/
 	var pageSize = 5;     
 	var pageBlockSize = 5;    
-	
-	/** OnLoad event */ 
+
+
+	/** OnLoad event **/ 
 	$(function() {
-		// 버튼 이벤트 등록
-		fRegisterButtonClickEvent();
-		
-		fn_clntlist();
-		
-		// 은행코드 콤보    상세코드테이블의 은행코드, 은행코드명 으로 만듬   
+		fRegisterButtonClickEvent();  // 버튼 이벤트
+		fn_clntlist();  // 고객기업 목록
+
+		/* 모달 내부 콤보박스 모음 */
+		// 은행코드 콤보
 		comcombo("bk_cd","bkcombo","all","");   // group_code, combo_name, type(기본값  all : 전체   sel : 선택)    , selvalue(선택 되어 나올 값)         
-		
 	});
 	
 	
-	/** 버튼 이벤트 등록 */
-	
+	/** 버튼 이벤트 등록 **/
 	function fRegisterButtonClickEvent() {
-    $('a[name=btn]').click(function(e) {
-        e.preventDefault();
+		 $('a[name=btn]').click(function(e) {
+		 	 e.preventDefault();
 
-        var btnId = $(this).attr('id');
+		 	 var btnId = $(this).attr('id');
 
-        switch (btnId) {
-	        case 'btnSearch' :
-	            fn_clntlist();
-	            break;
-	        case 'btnSave' :
-	            fn_save();
-	            break;	
-	        case 'btnDelete' :
-	            $("#action").val("D");	
-	            fn_save();
-	            break;	
-	        case 'btnClose' :
-	            gfCloseModal();
-	            break;
-	        }
-	    });
+		        switch (btnId) {
+			        case 'btnSearch' :
+			            fn_clntlist();
+			            break;
+			        case 'btnSave' :
+			            fn_save();
+			            break;	
+			        case 'btnDelete' :
+			            $("#action").val("D");	
+			            fn_save();
+			            break;	
+			        case 'btnClose' :
+			            gfCloseModal();
+			            break;
+			        }
+		    });
 	}
 	
-	
+
+        /** 고객기업 목록 **/
 	function fn_clntlist(pagenum) {
 		
 		pagenum = pagenum || 1;
 		
 		var param = {
-			searchKey : $("#searchKey").val()
-		  ,	sname : $("#sname").val()
-		  , pageSize : pageSize
-		  , pageBlockSize : pageBlockSize
-		  , pagenum : pagenum
+			      searchKey : $("#searchKey").val()
+			    , sname : $("#sname").val()
+			    , pageSize : pageSize
+			    , pageBlockSize : pageBlockSize
+			    , pagenum : pagenum
 		}
 		
 		var listcallback = function(returnvalue) {
@@ -88,7 +85,6 @@
 			$("#listclnt").empty().append(returnvalue);
 			
 			var  totalcnt = $("#totalcnt").val();
-			
 			console.log("totalcnt : " + totalcnt);
 			
 			var paginationHtml = getPaginationHtml(pagenum, totalcnt, pageSize, pageBlockSize, 'fn_clntlist');
@@ -98,91 +94,90 @@
 			
 			$("#pageno").val(pagenum);
 		}
-		
-		callAjax("/busClm/clntlist.do", "post", "text", false, param, listcallback) ;
-			
+		callAjax("/busClm/clntlist.do", "post", "text", false, param, listcallback) ;	
 	}
 	
-	
+
+	/** 모달 **/
 	function fn_openpopup() {
 		
 		popupinit();
 		
 		// 모달 팝업
 		gfModalPop("#layer1");
-					
 	}
 	
-	
+
+	/** 모달 내 데이터 초기화/불러오기 **/
 	function popupinit(object) {
 		
-	    if(object == "" || object == null || object == undefined) {
-	        $("#clnt_name").val("");
-	        $("#clnt_tel").val("");
-	        $("#clnt_mng").val("");
-	        $("#clnt_hp").val("");
-	        $("#clnt_zip").val("");
-	        $("#clnt_add").val("");
-	        $("#clnt_add_dt").val("");
-	        $("#clnt_email").val("");
-	        $("#clnt_indst").val("");
-	        $("#clnt_indst_no").val("");
-	        $("#bkcombo").val("");
-	        $("#clnt_acc").val("");
-	        $("#clnt_memo").val("");
-	        $("#clnt_no").val("");
+	        if(object == "" || object == null || object == undefined) {
+	              $("#clnt_name").val("");
+	              $("#clnt_tel").val("");
+	              $("#clnt_mng").val("");
+	              $("#clnt_hp").val("");
+	              $("#clnt_zip").val("");
+	              $("#clnt_add").val("");
+	              $("#clnt_add_dt").val("");
+	              $("#clnt_email").val("");
+	              $("#clnt_indst").val("");
+	              $("#clnt_indst_no").val("");
+	              $("#bkcombo").val("");
+	              $("#clnt_acc").val("");
+	              $("#clnt_memo").val("");
+	              $("#clnt_no").val("");
 
-	        $("#map").hide();
-	        $("#btnDelete").hide();
+	              $("#map").hide();
+	              $("#btnDelete").hide();
 
-	        // object 가 없는 상태로 팝업 뜰 땐, action 을 “I” 로 설정하여  INSERT
-	        $("#action").val("I");	
-	    } else {   	
+	              // object 가 없는 상태로 팝업 뜰 땐, action 을 “I” 로 설정하여  INSERT
+	              $("#action").val("I");	
+	        } else {   	
 	    	
-	        $("#clnt_name").val(object.clnt_name);
-	        $("#clnt_tel").val(object.clnt_tel);
-	        $("#clnt_mng").val(object.clnt_mng);
-	        $("#clnt_hp").val(object.clnt_hp);
-	        $("#clnt_zip").val(object.clnt_zip);
-	        $("#clnt_add").val(object.clnt_add);
-	        $("#clnt_add_dt").val(object.clnt_add_dt);
-	        $("#clnt_email").val(object.clnt_email);
-	        $("#clnt_indst").val(object.clnt_indst);
-	        $("#clnt_indst_no").val(object.clnt_indst_no);
-	        $("#clnt_acc").val(object.clnt_acc);
-	        $("#bkcombo").val(object.bk_cd);
-	        $("#clnt_memo").val(object.clnt_memo);
-	        $("#clnt_no").val(object.clnt_no);
+	              $("#clnt_name").val(object.clnt_name);
+	              $("#clnt_tel").val(object.clnt_tel);
+	              $("#clnt_mng").val(object.clnt_mng);
+	              $("#clnt_hp").val(object.clnt_hp);
+	              $("#clnt_zip").val(object.clnt_zip);
+	              $("#clnt_add").val(object.clnt_add);
+	              $("#clnt_add_dt").val(object.clnt_add_dt);
+	              $("#clnt_email").val(object.clnt_email);
+	              $("#clnt_indst").val(object.clnt_indst);
+	              $("#clnt_indst_no").val(object.clnt_indst_no);
+	              $("#clnt_acc").val(object.clnt_acc);
+	              $("#bkcombo").val(object.bk_cd);
+	              $("#clnt_memo").val(object.clnt_memo);
+	              $("#clnt_no").val(object.clnt_no);
 
-	        $("#map").show();
-	        $("#btnDelete").show();
+	              $("#map").show();
+	              $("#btnDelete").show();
 
-	        // object 가 있는 상태로 팝업 뜰 땐, action 을 “U” 로 설정하여  UPDATE
-	        $("#action").val("U");	
-	    }
+	              // object 가 있는 상태로 팝업 뜰 땐, action 을 “U” 로 설정하여  UPDATE
+	              $("#action").val("U");	
+	        }
 	}
 	
-	
+
+	/** 고객기업 한건 조회 **/
 	function fn_selectone(no) {
 		
-	    var param = {
-	        clnt_no : no
-	    }
+	        var param = {
+		    clnt_no : no
+	        }
 
-	    var selectoncallback = function(returndata) {			
-	        console.log( JSON.stringify(returndata) );
-	        popupinit(returndata.clntsearch);
+	        var selectoncallback = function(returndata) {			
+		    console.log( JSON.stringify(returndata) );
+		    popupinit(returndata.clntsearch);
 
-	        // 모달 팝업
-	        gfModalPop("#layer1");
-	        
-	        
-			/****  카카오맵  JS코드 시작     ****/
-	        var mapContainer = document.getElementById('map'), // 지도 표시할 div 
-		        mapOption = {
-		            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-		            level: 3 // 지도의 확대 레벨
-		        };  
+		// 모달 팝업
+		gfModalPop("#layer1");
+		
+		/* 카카오맵 JS코드 시작 */
+		var mapContainer = document.getElementById('map'), // 지도 표시할 div 
+			mapOption = {
+			    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			    level: 3 // 지도의 확대 레벨
+			};  
 		    // 지도 생성
 		    var map = new kakao.maps.Map(mapContainer, mapOption); 
 		    // 주소-좌표 변환 객체 생성
@@ -190,73 +185,71 @@
 		    // 주소로 좌표 검색
 		    geocoder.addressSearch($("#clnt_add").val(), function(result, status) {
 	
-		        // 정상적으로 검색이 완료됐으면 
-		         if (status === kakao.maps.services.Status.OK) {
-		            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-		            // 결과값으로 받은 위치를 마커로 표시
-		            var marker = new kakao.maps.Marker({
-		                map: map,
-		                position: coords
-		            });
-		            // 지도의 중심을 결과값으로 받은 위치로 이동
-		            map.setCenter(coords);
-		        } 
+			// 정상적으로 검색이 완료됐으면 
+			 if (status === kakao.maps.services.Status.OK) {
+			    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			    // 결과값으로 받은 위치를 마커로 표시
+			    var marker = new kakao.maps.Marker({
+				map: map,
+				position: coords
+			    });
+			    // 지도의 중심을 결과값으로 받은 위치로 이동
+			    map.setCenter(coords);
+			} 
 		    });
-		    /****  카카오맵  JS코드 끝     ****/
-			
-		    
-	    }
-	    callAjax("/busClm/clntselectone.do", "post", "json", false, param, selectoncallback) ;
+		/* 카카오맵 JS코드 끝 */    
+	        }
+	        callAjax("/busClm/clntselectone.do", "post", "json", false, param, selectoncallback);
 	}
 	
-	
+
+	/** 고객기업 저장 **/
 	function fn_save() {
 		
 		// 비어있는 값으로 저장되지 않도록 유효성 검사
-	    if ( ! fn_Validate() ) {
-	        return;
-	    }
-
-	    var param = {
-	        action : $("#action").val(),
-	        clnt_no : $("#clnt_no").val(),
-	        clnt_name : $("#clnt_name").val(),
-	        clnt_tel : $("#clnt_tel").val(),
-	        clnt_mng : $("#clnt_mng").val(),
-	        clnt_hp : $("#clnt_hp").val(),
-	        clnt_zip : $("#clnt_zip").val(),
-	        clnt_add : $("#clnt_add").val(),
-	        clnt_add_dt : $("#clnt_add_dt").val(),
-	        clnt_email : $("#clnt_email").val(),
-	        clnt_indst : $("#clnt_indst").val(),
-	        clnt_indst_no : $("#clnt_indst_no").val(),
-	        bkcombo : $("#bkcombo").val(),
-	        clnt_acc : $("#clnt_acc").val(),
-	        clnt_memo : $("#clnt_memo").val()
-	    };
-
-	    var savecallback = function(reval) {
-	        console.log( JSON.stringify(reval) );
-
-	        if(reval.returncval > 0) {
-	            alert("반영 되었습니다.");
-	            gfCloseModal();
-
-	            if($("#action").val() == "U") {
-	                fn_clntlist($("#pageno").val());
-	            } else {
-	                fn_clntlist();
-	            }
-	        }  else {
-	            alert("오류가 발생 되었습니다.");				
+	        if ( ! fn_Validate() ) {
+	            return;
 	        }
-	    }
 
-	    callAjax("/busClm/clntsave.do", "post", "json", false, param, savecallback) ;
+	        var param = {
+	            action : $("#action").val(),
+	            clnt_no : $("#clnt_no").val(),
+	            clnt_name : $("#clnt_name").val(),
+	            clnt_tel : $("#clnt_tel").val(),
+	            clnt_mng : $("#clnt_mng").val(),
+	            clnt_hp : $("#clnt_hp").val(),
+	            clnt_zip : $("#clnt_zip").val(),
+	            clnt_add : $("#clnt_add").val(),
+	            clnt_add_dt : $("#clnt_add_dt").val(),
+	            clnt_email : $("#clnt_email").val(),
+	            clnt_indst : $("#clnt_indst").val(),
+	            clnt_indst_no : $("#clnt_indst_no").val(),
+	            bkcombo : $("#bkcombo").val(),
+	            clnt_acc : $("#clnt_acc").val(),
+	            clnt_memo : $("#clnt_memo").val()
+	        };
 
+	        var savecallback = function(reval) {
+	            console.log( JSON.stringify(reval) );
+
+	            if(reval.returncval > 0) {
+	                alert("반영 되었습니다.");
+	                gfCloseModal();
+
+	                if($("#action").val() == "U") {
+	                    fn_clntlist($("#pageno").val());
+	                } else {
+	                    fn_clntlist();
+	                }
+	            } else {
+	              alert("오류가 발생 되었습니다.");				
+	            }
+	        }
+	        callAjax("/busClm/clntsave.do", "post", "json", false, param, savecallback);
 	}
 	
-	
+
+	/** 입력값 유효성 검사 **/
 	function fn_Validate() {
 		var chk = checkNotEmpty(
 				[
@@ -279,8 +272,9 @@
 		}
 		return true;
 	}
-	
-	// 우편번호 API
+
+
+	/** 우편번호 API **/
 	function execDaumPostcode(q) {
 		new daum.Postcode({
 			oncomplete : function(data) {

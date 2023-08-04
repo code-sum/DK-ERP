@@ -33,6 +33,6 @@ public interface BusOdmService {
     public int orderdetailinsert(Map<String, Object> paramMap) throws Exception;
     
     /** [저장] 버튼 클릭 시, 회계전표 저장 */
-	public int accountinsert(Map<String, Object> paramMap) throws Exception;
+    public int accountinsert(Map<String, Object> paramMap) throws Exception;
     
 }

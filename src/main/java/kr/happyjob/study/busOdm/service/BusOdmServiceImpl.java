@@ -62,14 +62,14 @@ public class BusOdmServiceImpl implements BusOdmService {
 	}
 	
 	/** [저장] 버튼 클릭 시, 주문 상세 정보 저장 */
-    @Override
-    public int orderdetailinsert(Map<String, Object> paramMap) throws Exception {
-        return busOdmDao.orderdetailinsert(paramMap);
-    }
+        @Override
+        public int orderdetailinsert(Map<String, Object> paramMap) throws Exception {
+            return busOdmDao.orderdetailinsert(paramMap);
+        }
     
-    /** [저장] 버튼 클릭 시, 회계전표 저장 */
-    public int accountinsert(Map<String, Object> paramMap) throws Exception {
-    	return busOdmDao.accountinsert(paramMap);
-    }
+        /** [저장] 버튼 클릭 시, 회계전표 저장 */
+        public int accountinsert(Map<String, Object> paramMap) throws Exception {
+    	    return busOdmDao.accountinsert(paramMap);
+        }
     
 }

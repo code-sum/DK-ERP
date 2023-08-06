@@ -113,7 +113,7 @@
 
 				<!-- [닫기] 버튼  -->
 				<div class="btn_areaC mt30">
-					<a href=""	class="btnType gray"  id="btnClose" name="btn"><span>닫기</span></a>
+					<a href="" class="btnType gray" id="btnClose" name="btn"><span>닫기</span></a>
 				</div>
 			</dd>
 		</dl>

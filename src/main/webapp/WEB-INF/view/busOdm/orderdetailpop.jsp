@@ -9,8 +9,6 @@
 			</dt>
 			<dd class="content">
 
-				<!-- s : 여기에 내용입력 -->
-
 				<table class="row">
 					<caption>caption</caption>
 					<colgroup>
@@ -63,9 +61,9 @@
 					</tbody>
 				</table>
 
-                <div style="overflow-y:scroll; margin-top:15px;"> <!-- 주문 상세내역 무한 스크롤 -->
-                	<table class="col">
-						<caption>caption</caption>
+	                <div style="overflow-y:scroll; margin-top:15px;"> <!-- 주문 상세내역 무한 스크롤 -->
+	                	<table class="col">
+					<caption>caption</caption>
 						<colgroup>
 							<col width="10%">
 							<col width="40%">
@@ -73,7 +71,6 @@
 							<col width="10%">
 							<col width="25%">
 						</colgroup>
-	
 						<thead>
 							<tr>
 								<th scope="col">제품번호</th>
@@ -102,14 +99,13 @@
 								</c:forEach>
 							</c:if>	
 						</tbody>
-					</table>
-					<div style="display:flex; justify-content:center; align-content:center; margin-top:15px;">
-						<span style="font-weight:bold; margin-right:10px;">총주문금액</span>
-						<fmt:formatNumber value="${ordersearch.order_tot_price}" pattern="#,##0"/>
-					</div>
-                </div>
+				</table>
+				<div style="display:flex; justify-content:center; align-content:center; margin-top:15px;">
+					<span style="font-weight:bold; margin-right:10px;">총주문금액</span>
+					<fmt:formatNumber value="${ordersearch.order_tot_price}" pattern="#,##0"/>
+				</div>
+	                </div>
 
-				<!-- e : 여기에 내용입력 -->
 
 				<!-- [닫기] 버튼  -->
 				<div class="btn_areaC mt30">

@@ -15,21 +15,22 @@
                               
 <script type="text/javascript">
 
-	// 페이징 설정
+	/** 페이징 설정 **/
 	var pageSize = 5;     
 	var pageBlockSize = 5;    
-	
+
+
 	/** OnLoad event */ 
 	$(function() {
-		// 버튼 이벤트 등록
-		fRegisterButtonClickEvent();
-		
-		fn_orderlist();
-		
-		// 검색창 콤보 박스  (조회 대상 테이블  tb_clnt)
+		fRegisterButtonClickEvent();  // 버튼 이벤트
+		fn_orderlist();  // 주문 목록
+
+		/* 검색창 콤보박스 모음 */
+		// 고객기업명 (조회 대상 테이블  tb_clnt)
 		selectComCombo("cli","searchclicombo","all","","");  // combo type(combo box 종류),  combo_name, type(기본값  all : 전체   sel : 선택) , "", "" 
 		
-		/*  모달 내부 콤보박스 모음   */
+		/* 모달 내부 콤보박스 모음 */
+		// 고객기업명
 		selectComCombo("cli","clicombo","all","","");  // combo type(combo box 종류),  combo_name, type(기본값  all : 전체   sel : 선택) , "", "" 
 		// 제품분류
 		productCombo("l","ltypecombo","all","","","","");  // combo type( l : 대분류   m : 중분류   s : 소분류) combo_name, type(기본값  all : 전체   sel : 선택) ,  대분류 코드, 중분류코드, 소분류 코드, ""
@@ -45,47 +46,48 @@
 	});
 	
 	
-	/** 버튼 이벤트 등록 */
-	
+	/** 버튼 이벤트 등록 **/
 	function fRegisterButtonClickEvent() {
-    $('a[name=btn]').click(function(e) {
-        e.preventDefault();
-
-        var btnId = $(this).attr('id');
-
-        switch (btnId) {
-	        case 'btnSearch' :
-	            fn_orderlist();
-	            break;
-	        case 'btnAdd' : 
-	        	fn_add();
-	        	break;
-	        case 'btnSave' :
-	            fn_save();
-	            break;	
-	        case 'btnClose' :
-	            gfCloseModal();
-	            break;
-	        }
-	    });
+	         $('a[name=btn]').click(function(e) {
+	                 e.preventDefault();
+	
+	                 var btnId = $(this).attr('id');
+	
+		        switch (btnId) {
+			        case 'btnSearch' :
+			             fn_orderlist();
+			             break;
+			        case 'btnAdd' : 
+			             fn_add();
+			             break;
+			        case 'btnSave' :
+			             fn_save();
+			             break;	
+			        case 'btnClose' :
+			             gfCloseModal();
+			             break;
+			        }
+		    });
 	}
 	
-	
+
+	/** 주문 목록 **/
 	function fn_orderlist(pagenum) {
 		
 		pagenum = pagenum || 1;
 		
 		var param = {
-		    start : $("#searchstart").val()
-		  , end : $("#searchend").val()
-		  ,	clicombo : $("#searchclicombo").val()
-		  , pageSize : pageSize
-		  , pageBlockSize : pageBlockSize
-		  , pagenum : pagenum
+			      start : $("#searchstart").val()
+			    , end : $("#searchend").val()
+			    , clicombo : $("#searchclicombo").val()
+			    , pageSize : pageSize
+			    , pageBlockSize : pageBlockSize
+			    , pagenum : pagenum
 		}
 		
 		var listcallback = function(returnvalue) {
 			console.log(returnvalue);
+
 			$("#listorder").empty().append(returnvalue);
 			
 			var  totalcnt = $("#totalcnt").val();
@@ -93,21 +95,22 @@
 			
 			var paginationHtml = getPaginationHtml(pagenum, totalcnt, pageSize, pageBlockSize, 'fn_orderlist');
 			console.log("paginationHtml : " + paginationHtml);
-			$("#orderPagination").empty().append( paginationHtml );
+
+			$("#orderPagination").empty().append(paginationHtml);
+
 			$("#pageno").val(pagenum);
 		}
-		
-		callAjax("/busOdm/orderlist.do", "post", "text", false, param, listcallback) ;
-			
+		callAjax("/busOdm/orderlist.do", "post", "text", false, param, listcallback);	
 	}
 	
-	
+
+	/** 모달 **/
 	function fn_openpopup() {
 		
 		popupinit();
 		
 		// 주문서 신규작성 모달 팝업
-	    gfModalPop("#layer1");				
+	        gfModalPop("#layer1");				
 	}
 	
 	

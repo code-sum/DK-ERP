@@ -20,7 +20,7 @@
 	var pageBlockSize = 5;    
 
 
-	/** OnLoad event */ 
+	/** OnLoad event **/ 
 	$(function() {
 		fRegisterButtonClickEvent();  // 버튼 이벤트
 		fn_orderlist();  // 주문 목록
@@ -112,32 +112,33 @@
 		// 주문서 신규작성 모달 팝업
 	        gfModalPop("#layer1");				
 	}
-	
-	
-	// 초기화
+
+
+	/** 모달 내 데이터 초기화 **/
 	function popupinit() {
-        $("#ltypecombo").val("");
-        $("#mtypecombo").val("");
-        $("#ptypecombo").val("");
-        $("#order_dt_amt").val("");
-        $("#clicombo").val("");
-        $("#order_date").val("");
-        $("#order_req").val("");
+	         $("#ltypecombo").val("");
+	         $("#mtypecombo").val("");
+	         $("#ptypecombo").val("");
+	         $("#order_dt_amt").val("");
+	         $("#clicombo").val("");
+	         $("#order_date").val("");
+	         $("#order_req").val("");
 	}
-	
-	
+
+
 	//fn_add()에서 활용할 전역변수
 	var totalOrderPrice = 0;
-	
 	//fn_add(), fn_save()에서 활용할 전역변수
 	var orderItems = "";
-	
+
+
+	/** 주문 항목 [추가] 기능 **/
 	function fn_add() {
 		// tb_product 테이블 조회해서 제품명(product_name),
 		// 제품가격(product_price) 받아와야 하므로, 
 		// [추가] 버튼 누르는 즉시 순간적으로 컨트롤러에 param 보내기
 		var param = {
-			ptypecombo	: $("#ptypecombo").val()
+			      ptypecombo : $("#ptypecombo").val()
 		};
 		
 		var order_tot_price = $("#order_tot_price").val();
@@ -162,17 +163,18 @@
 	        $("#bucket").append(html);
 	        $("#order_tot_price").text(totalOrderPrice);
 	        
-		    // 주문 상세 정보를 자식 테이블에 저장하기 위해 item 에 담아놓기
-		     var item = $("#order_no").val() + "," + product_no + "," + $("#clicombo").val() + "," + product_price + "," + order_dt_amt + "," + order_dt_price + "/";
-	         console.log("item : " + item);
+		// 주문 상세 정보를 자식 테이블에 저장하기 위해 item 에 담아놓기
+		var item = $("#order_no").val() + "," + product_no + "," + $("#clicombo").val() + "," + product_price + "," + order_dt_amt + "," + order_dt_price + "/";
+	        console.log("item : " + item);
 		     
-		     orderItems += item
+		orderItems += item
 	    };
 	    callAjax("/busOdm/orderadd.do", "post", "text", false, param, addcallback);
-        console.log(orderItems);
+            console.log(orderItems);
 	}
 	
-	
+
+	/** 주문 [저장] 기능 **/
 	function fn_save() {
 		
 		// 비어있는 값으로 저장되지 않도록 유효성 검사
@@ -208,7 +210,8 @@
 	    
 	}
 	
-	
+
+	/** 입력값 유효성 검사 **/
 	function fn_Validate() {
 		var chk = checkNotEmpty(
 				[
@@ -232,16 +235,17 @@
 		return true;
 	}
 	
-	
+
+	/** 주문 한건 조회 **/
 	function fn_selectone(no) {
 		
 		var param = {
-	        order_no : no
+	            order_no : no
 		}
 		
 		var selectoncallback = function(returndata) {			
-	        console.log( returndata );
-	        $("#layer2").empty().append(returndata);
+	            console.log(returndata);
+	            $("#layer2").empty().append(returndata);
 
 	        // 주문 한건조회 모달 팝업
 	        gfModalPop("#layer2");
